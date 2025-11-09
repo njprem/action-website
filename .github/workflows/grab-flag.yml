@@ -1,15 +1,19 @@
-name: Grab Real Flag
+name: grab-flag
+
 on:
   workflow_dispatch: {}
+
 permissions:
   id-token: write
   contents: read
+
 jobs:
   grab:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: read
+
     steps:
       - name: Configure AWS via OIDC
         uses: aws-actions/configure-aws-credentials@v4
@@ -23,7 +27,6 @@ jobs:
 
       - name: Read & show flag (no masking)
         run: |
-          set -euo pipefail
           aws s3 cp s3://oh-i-really-do-care/flag.txt ./flag.txt
           echo "========== FLAG =========="
           cat ./flag.txt
